@@ -47,7 +47,7 @@ if [[ $ip4 == $old_ip4  ]]; then
 fi
 
 # The execution of update
-update4=$(curl -s -X PUT "$plesk_url/$record_id" -H  "accept: application/json" -H  "$auth_code" -H  "Content-Type:$
+update4=$(curl -s -X PUT "$plesk_url/$record_id" -H  "accept: application/json" -H  "$auth_code" -H  "Content-Type: application/json" -d "{  \"id\": $record_id,  \"type\": \"A\",  \"host\": \"$record_name\",  \"value\": \"$ip4\",  \"opt\": \"\",  \"ttl\": $record_ttl}")
 update4_result=$(echo $update4 | jq -r ".status")
 
 # The moment of truth
@@ -58,4 +58,3 @@ else
   echo "[Plesk DDNS] Old IPv4: '$old_ip4' to New IPv4: '$ip4' has been synced to Plesk DNS."
   exit 0
 fi
-
